@@ -23,21 +23,17 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install pipenv
+        pip install nuitka==0.6.19
+
 
     - name: bring_module_binary
       run: |
-        pipenv --python=3.7
-        pipenv install --skip-lock
-        pipenv run python gen.py $(pwd)
+        python gen.py $(pwd)
         mv op.cp* ./../test
       working-directory: ./test_lib/
 
     - name: test_output
       run: |
-        pipenv --python=3.7
-        pipenv install --skip-lock
-        pipenv run python test.py
+        python test.py
       working-directory: ./test/
 
