@@ -2,7 +2,7 @@ name: Create Binary CI
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   create_darwin_binary:
