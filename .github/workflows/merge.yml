@@ -64,16 +64,25 @@
 #           draft: false
 #           prerelease: false
 
+name: create-release
+
+on:
+  pull_request:
+    branches: [ develop ]
+
 jobs:
   create-release:
     name: Create release
     runs-on: ubuntu-latest
     if: contains(github.head_ref, 'release')
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Release
-              uses: softprops/action-gh-release@v1
-              with:
-                name: ${{ github.event.pull_request.body }}
-                tag_name: ${{ github.event.pull_request.title }}
-                generate_release_notes: true
-                files: test/
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.event.pull_request.body }}
+          tag_name: ${{ github.event.pull_request.title }}
+          generate_release_notes: true
+          files: test/
