@@ -72,7 +72,6 @@ on:
 
 jobs:
   create-release:
-    name: Create release
     runs-on: ubuntu-latest
     if: contains(github.head_ref, 'release')
     steps:
