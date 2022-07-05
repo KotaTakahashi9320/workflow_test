@@ -111,3 +111,5 @@ jobs:
           generate_release_notes: true
           files: test_lib/*
           repository: KotaTakahashi9320/Lattice-based-crypto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
