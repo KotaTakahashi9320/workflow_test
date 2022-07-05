@@ -1,4 +1,4 @@
-name: Create-Binary-CI
+name: create-release
 
 on:
   pull_request:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   create_darwin_binary:
+    name: Create release
     runs-on: macos-latest
 
     strategy:
