@@ -1,41 +1,52 @@
-# name: Create Binary CI
+name: Create Binary CI
 
-# on:
-#   pull_request:
-#     branches: [ develop ]
+on:
+  pull_request:
+    branches: [ develop ]
 
-# jobs:
-#   create_darwin_binary:
-#     runs-on: macos-latest
+jobs:
+  create_darwin_binary:
+    runs-on: macos-latest
 
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         python-version: [3.7, 3.8, 3.9]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
     
-#     steps:
-#     - uses: actions/checkout@v2
+    steps:
+    - uses: actions/checkout@v2
 
-#     - name: Set up Python ${{ matrix.python-version }}
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
 
-#     - name: Install dependencies
-#       run: |
-#         pip install nuitka==0.6.19
+    - name: Install dependencies
+      run: |
+        pip install nuitka==0.6.19
 
 
-#     - name: bring_module_binary
-#       run: |
-#         python gen.py $(pwd)
-#         mv op.cp* ./../test
-#       working-directory: ./test_lib/
+    - name: bring_module_binary
+      run: |
+        python gen.py $(pwd)
+        mv op.cp* ./../test
+      working-directory: ./test_lib/
 
-#     - name: test_output
-#       run: |
-#         python test.py
-#       working-directory: ./test/
+    - name: test_output
+      run: |
+        python test.py
+      working-directory: ./test/
+
+    - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.event.pull_request.body }}
+          tag_name: ${{ github.event.pull_request.title }}
+          generate_release_notes: true
+          files: test/*
+          repository: KotaTakahashi9320/Lattice-based-crypto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 # name: Create Release
@@ -89,27 +100,27 @@
 #           token: ${{ secrets.GITHUB_TOKEN }}
 
 
-name: create-release
+# name: create-release
 
-on:
-  pull_request:
-    branches: [ develop ]
+# on:
+#   pull_request:
+#     branches: [ develop ]
 
-jobs:
-  create-release:
-    name: Create release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: ${{ github.event.pull_request.body }}
-          tag_name: ${{ github.event.pull_request.title }}
-          generate_release_notes: true
-          files: test_lib/*
-          repository: KotaTakahashi9320/Lattice-based-crypto
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# jobs:
+#   create-release:
+#     name: Create release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#       - name: Release
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           name: ${{ github.event.pull_request.body }}
+#           tag_name: ${{ github.event.pull_request.title }}
+#           generate_release_notes: true
+#           files: test_lib/*
+#           repository: KotaTakahashi9320/Lattice-based-crypto
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
