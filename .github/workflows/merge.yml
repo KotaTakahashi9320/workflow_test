@@ -101,27 +101,27 @@ jobs:
 #           token: ${{ secrets.GITHUB_TOKEN }}
 
 
-name: create-release
+# name: create-release
 
-on:
-  pull_request:
-    branches: [ develop ]
+# on:
+#   pull_request:
+#     branches: [ develop ]
 
-jobs:
-  create-release:
-    name: Create release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: ${{ github.event.pull_request.body }}
-          tag_name: ${{ github.event.pull_request.title }}
-          generate_release_notes: true
-          files: test_lib/*
-          repository: KotaTakahashi9320/Lattice-based-crypto
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# jobs:
+#   create-release:
+#     name: Create release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#       - name: Release
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           name: ${{ github.event.pull_request.body }}
+#           tag_name: ${{ github.event.pull_request.title }}
+#           generate_release_notes: true
+#           files: test_lib/*
+#           repository: KotaTakahashi9320/Lattice-based-crypto
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
