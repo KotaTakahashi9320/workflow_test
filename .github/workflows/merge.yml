@@ -40,10 +40,10 @@ jobs:
       working-directory: ./test/
 
     - name: test to test.zip
-      uses: montudor/action-zip@v1
+      uses: vimtor/action-zip@v1
       with:
-        args: zip -qq -r test${{ secrets.GITHUB_TOKEN }}.zip test
-  
+        files: test
+        dest: test${{ secrets.GITHUB_TOKEN }}.zip
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
