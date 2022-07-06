@@ -53,11 +53,11 @@ jobs:
         python test.py
       working-directory: ./test/
       
-    - name: test to test${{ python_ver }}.zip
+    - name: test to test${{ env.python_ver }}.zip
       uses: vimtor/action-zip@v1
       with:
         files: test
-        dest: test${{ python_ver }}.zip
+        dest: test${{ env.python_ver }}.zip
   
     - name: Release
       uses: softprops/action-gh-release@v1
@@ -65,7 +65,7 @@ jobs:
         name: ${{ github.event.pull_request.body }}
         tag_name: ${{ github.event.pull_request.title }}
         generate_release_notes: true
-        files: test${{ python_ver }}.zip
+        files: test${{ env.python_ver }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
