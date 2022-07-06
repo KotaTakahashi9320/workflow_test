@@ -19,6 +19,15 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
     
+    env:
+      python_ver: |
+        ${{
+          matrix.python-version == '3.7' &&
+            37 ||
+          matrix.python-version == '3.8' &&
+            38 ||
+          39
+        }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -44,19 +53,11 @@ jobs:
         python test.py
       working-directory: ./test/
       
-    - name: test to test37.zip
-      if: ${{ matrix.python-version }} == 3.7
+    - name: test to test${{ python_ver }}.zip
       uses: vimtor/action-zip@v1
       with:
         files: test
-        dest: test37.zip
-    
-    - name: test to test_another.zip
-      if: ${{ matrix.python-version }} != 3.7
-      uses: vimtor/action-zip@v1
-      with:
-        files: test
-        dest: test37.zip
+        dest: test${{ python_ver }}.zip
   
     - name: Release
       uses: softprops/action-gh-release@v1
@@ -64,7 +65,7 @@ jobs:
         name: ${{ github.event.pull_request.body }}
         tag_name: ${{ github.event.pull_request.title }}
         generate_release_notes: true
-        files: test${{ matrix.python-version }}.zip
+        files: test${{ python_ver }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
