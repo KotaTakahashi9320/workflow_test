@@ -4,6 +4,11 @@ on:
   pull_request:
     branches: [ develop ]
 
+env:
+  3.7: 37
+  3.8: 38
+  3.9: 39
+
 jobs:
   create_darwin_binary:
     name: Create release
@@ -43,7 +48,7 @@ jobs:
       uses: vimtor/action-zip@v1
       with:
         files: test
-        dest: test${{ matrix.python-version }}.zip
+        dest: test${{${{ matrix.python-version }}}}.zip
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
