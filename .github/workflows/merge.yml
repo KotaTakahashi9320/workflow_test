@@ -51,7 +51,7 @@ jobs:
     - name: test_output
       run: |
         python test.py
-        echo ${{ env.python_ver }}
+        echo ${{ env.python_ver }}.zip
       working-directory: ./test/
       
     - name: test to test${{ env.python_ver }}.zip
