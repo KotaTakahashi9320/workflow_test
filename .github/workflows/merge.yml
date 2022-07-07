@@ -57,6 +57,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         name: ${{ github.run_id }}
+        tag_name: ${{ github.run_id }}
         generate_release_notes: true
         files: ${{ env.file_name }}
       env:
