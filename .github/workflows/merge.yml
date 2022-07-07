@@ -17,10 +17,10 @@ jobs:
     env:
       python_ver: |
         ${{
-          matrix.python-version == '3.7' &&
-            '37' ||
-          matrix.python-version == '3.8' &&
-            '38' ||
+          (matrix.python-version == '3.7' &&
+            '37') ||
+          (matrix.python-version == '3.8' &&
+            '38') ||
           '39'
         }}
     steps:
