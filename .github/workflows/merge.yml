@@ -8,7 +8,7 @@ jobs:
   create_darwin_binary:
     name: Create release
     # runs-on: ubuntu-latest
-    runs-on: macos-latest
+    runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
