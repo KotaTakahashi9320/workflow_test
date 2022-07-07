@@ -4,11 +4,6 @@ on:
   pull_request:
     branches: [ develop ]
 
-env:
-  3.7: 37
-  3.8: 38
-  3.9: 39
-
 jobs:
   create_darwin_binary:
     name: Create release
@@ -23,10 +18,10 @@ jobs:
       python_ver: |
         ${{
           matrix.python-version == '3.7' &&
-            37 ||
+            '37' ||
           matrix.python-version == '3.8' &&
-            38 ||
-          39
+            '38' ||
+          '39'
         }}
     steps:
     - uses: actions/checkout@v3
